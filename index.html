@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para a Minha Kim 💜</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <style>
@@ -25,17 +25,16 @@
             background: var(--bg-soft);
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            perspective: 2000px;
         }
 
-        /* Corações caindo */
+        /* Corações ao fundo */
         .heart-fall {
             position: absolute;
             color: var(--purple-main);
             font-size: 1.2rem;
             animation: fall linear infinite;
             pointer-events: none;
-            z-index: 100;
+            z-index: 1;
         }
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
@@ -43,178 +42,168 @@
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* CONTAINER DO LIVRO - Ajustado para ser responsivo */
-        .book-container {
+        /* Pilha de Páginas */
+        .stack-container {
             position: relative;
-            width: 320px; /* Tamanho padrão para celular */
-            height: 480px;
-            transition: transform 1s;
-            transform-style: preserve-3d;
-        }
-
-        /* No Desktop o livro abre para o lado, no Mobile ele apenas gira no eixo */
-        @media (min-width: 768px) {
-            .book-container { width: 400px; height: 580px; }
-            .book-container.is-open { transform: translateX(50%); }
+            width: 340px;
+            height: 600px;
+            z-index: 10;
         }
 
         .page {
             position: absolute;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
-            transform-origin: left;
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
+            background: var(--paper);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 25px;
-            border-radius: 0 10px 10px 0;
-            box-shadow: inset 3px 0px 20px rgba(0,0,0,0.05), 5px 5px 15px rgba(0,0,0,0.1);
-            background: var(--paper);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s, z-index 0s 0.6s;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .back { transform: rotateY(180deg); border-radius: 10px 0 0 10px; }
-        #p1 { z-index: 6; } #p2 { z-index: 5; } #p3 { z-index: 4; } #p4 { z-index: 3; } #p5 { z-index: 2; }
-        .flipped { transform: rotateY(-180deg); z-index: 1 !important; }
-
-        /* Estilização de Textos Adaptáveis */
-        h1 { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--purple-main); margin: 5px 0; text-align: center;}
-        h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--purple-dark); text-align: center; }
-        p { font-size: 0.75rem; line-height: 1.4; text-align: center; color: #444; margin: 5px 0; }
-        
-        @media (min-width: 768px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.6rem; }
-            p { font-size: 0.85rem; }
+        /* Efeito de saída: vai para cima e volta para trás */
+        .page.exit {
+            transform: translateY(-120%) scale(0.9) rotate(-5deg);
+            opacity: 0;
         }
 
-        .draw { font-size: 2.5rem; margin: 5px 0; }
-        .cover-front { background: var(--purple-dark); color: white; border: 3px solid #d4af37; }
-        .timer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; margin-top: 10px; }
-        .unit { background: #f8f5ff; padding: 6px; border-radius: 8px; border-bottom: 3px solid var(--purple-main); }
-        .unit span { display: block; font-size: 1rem; font-weight: 700; color: var(--purple-main); }
-        .unit label { font-size: 0.5rem; text-transform: uppercase; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--purple-main); margin: 10px 0; text-align: center; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--purple-dark); text-align: center; margin-bottom: 15px; }
+        p { font-size: 0.88rem; line-height: 1.6; text-align: center; color: #444; margin: 0; }
+        .draw { font-size: 3rem; margin-bottom: 10px; }
 
-        /* A FOTO - Ajustada para não estourar a página */
+        /* Capa */
+        .page.cover { background: var(--purple-dark); color: white; border: 4px solid #d4af37; }
+        .page.cover h2 { color: #d4af37; }
+        .page.cover p { color: #eee; }
+
+        /* Timer */
+        .timer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 15px; }
+        .unit { background: #f8f5ff; padding: 10px; border-radius: 10px; border-bottom: 3px solid var(--purple-main); text-align: center; }
+        .unit span { display: block; font-size: 1.2rem; font-weight: 700; color: var(--purple-main); }
+        .unit label { font-size: 0.6rem; text-transform: uppercase; color: #666; }
+
+        /* Foto */
         .photo-frame {
             width: 100%;
-            height: 60%; /* No celular, a foto ocupa 60% da página */
-            border: 4px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            height: 380px; 
+            border: 6px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        .back-cover { background: var(--purple-main); color: white; }
+        /* Última Página */
+        .last-page { background: var(--purple-main); color: white; }
+        .last-page h1, .last-page h2, .last-page p { color: white !important; }
+
+        @media (max-width: 360px) {
+            .stack-container { width: 300px; height: 550px; }
+            p { font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="book-container" id="book">
-        <div id="p1" class="page" onclick="nextPage(1)">
-            <div class="front cover-front">
-                <p style="letter-spacing: 2px; color: #d4af37;">NOSSA HISTÓRIA</p>
-                <h2 style="color: white;">Nosso mundinho</h2>
-                <div class="draw">📖</div>
-                <p style="color: #ccc;">Toque para folhear...</p>
-            </div>
-            <div class="back">
-                <div class="draw">🏫</div>
-                <h2>O Início (Caótico)</h2>
-                <p>Tudo começou no CEU Parque Veredas. A gente se odiava! Pé esquerdo total. Mas admito: no fundo, eu só queria ser seu amigo.</p>
-            </div>
+    <div class="stack-container" id="stack">
+        
+        <div class="page cover" onclick="moveBack(this)">
+            <p style="letter-spacing: 3px;">NOSSA HISTÓRIA</p>
+            <h2>Nosso mundinho</h2>
+            <div class="draw">📖</div>
+            <p>Toque para ler nossa história...</p>
         </div>
 
-        <div id="p2" class="page" onclick="nextPage(2)">
-            <div class="front">
-                <div class="draw">🎒</div>
-                <h2>A melhora</h2>
-                <p>O ódio virou parceria. Aprontamos muito e ficamos inseparáveis. Ali eu percebi que estava apaixonado e aceitei te esperar.</p>
-            </div>
-            <div class="back">
-                <div class="draw">🎓</div>
-                <h2>Ensino médio</h2>
-                <p>Fomos para a mesma Etec. A vida nos distanciou um pouco, mas você nunca saiu do meu pensamento por um segundo.</p>
-            </div>
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🏫</div>
+            <h2>O Início (Caótico)</h2>
+            <p>Tudo começou no CEU Parque Veredas. A gente se odiava! Pé esquerdo total. Mas admito: no fundo, eu só queria ser seu amigo (e talvez algo mais, vai saber? Você me deixava confuso).</p>
         </div>
 
-        <div id="p3" class="page" onclick="nextPage(3)">
-            <div class="front">
-                <div class="draw">🛣️</div>
-                <h2>A Chance</h2>
-                <p>O destino nos uniu de novo. Você resolveu me dar uma chance e foi a melhor escolha da minha vida.</p>
-            </div>
-            <div class="back">
-                <div class="draw">🏔️🌊</div>
-                <h2>Aventuras</h2>
-                <p>Campos do Jordão, Rio, Ubatuba... Tenho certeza que ainda conheceremos a lendária casa do Toretto!</p>
-            </div>
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🎒</div>
+            <h2>A melhora</h2>
+            <p>O ódio virou parceria. Aprontamos muito, nos ajudamos e ficamos inseparáveis. Ali eu percebi que estava me apaixonando (KKKKK NÃO TINHA MAIS VOLTA)... Mas não era o momento certo, você tinha seus objetivos, suas metas e eu aceitei te esperar.</p>
         </div>
 
-        <div id="p4" class="page" onclick="nextPage(4)">
-            <div class="front">
-                <div class="draw">📚</div>
-                <h2>Orgulho de Você</h2>
-                <p>Na faculdade, vendo seu esforço, eu só te admiro mais. Lutarei ao seu lado por você, sempre.</p>
-            </div>
-            <div class="back">
-                <h1>Tempo Juntos</h1>
-                <div class="timer-grid">
-                    <div class="unit"><span id="days">00</span><label>Dias</label></div>
-                    <div class="unit"><span id="hours">00</span><label>Hrs</label></div>
-                    <div class="unit"><span id="minutes">00</span><label>Min</label></div>
-                    <div class="unit"><span id="seconds">00</span><label>Seg</label></div>
-                </div>
-                <p style="margin-top: 10px; font-size: 0.6rem;">Desde 01/09/2024 até o infinito.</p>
-            </div>
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🎓</div>
+            <h2>Ensino médio</h2>
+            <p>Fomos para a mesma Etec de ADM (parece marmelada, hein?), mas a vida nos distanciou um pouco. Mesmo assim, você nunca saiu do meu pensamento por um segundo sequer. Fiz coisas das quais me arrependo, porém resolvi deixar o passado para trás e olhar para o futuro. Nosso ensino médio foi difícil, mas superamos.</p>
         </div>
 
-        <div id="p5" class="page" onclick="nextPage(5)">
-            <div class="front">
-                <div class="photo-frame">
-                    <img src="foto.jpg" alt="Nós">
-                </div>
-                <h1>2026 💜</h1>
-            </div>
-            <div class="back back-cover">
-                <h2>Para a Minha Kim,</h2>
-                <p style="color: white; font-style: italic; font-size: 0.7rem;">
-                    "Você é mais bonita do que enxerga, mais forte do que parece e mais inteligente do que pensa."
-                </p>
-                <h1 style="color: #d4af37; font-size: 1.2rem;">Eu te amo, cachinhos.</h1>
-            </div>
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🛣️</div>
+            <h2>A Chance</h2>
+            <p>Anos depois, o destino nos uniu de novo. Conversas, encontros e o sentimento voltou com tudo! Você resolveu me dar uma chance... Não vou mentir, foi a melhor escolha da minha vida. Desde o momento em que você disse "sim", meu mundo parece ter ganhado mais cor — "Disse Kawan olhando o horizonte enquanto os ventos batem em seus cabelos". KKKKKKK Coé.</p>
         </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🏔️🌊</div>
+            <h2>Aventuras</h2>
+            <p>Campos do Jordão, Rio, Ubatuba, Bertioga... Esses são poucos lugares nos quais nos aventuramos, e eu tenho certeza que ainda conheceremos muito mais! Eu não sou de quebrar promessas e me lembro bem da nossa promessa de ir conhecer a lendária casa do Toretto.</p>
+        </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">📚</div>
+            <h2>Orgulho de Você</h2>
+            <p>Estamos na faculdade, cada um no seu curso, mas vendo seu esforço eu só te admiro mais. Sei que é difícil equilibrar tudo, e que sua cabeça às vezes sobrecarrega com tantas informações, tantos acontecimentos... Mas jamais esqueça que se tem alguém capaz de passar por isso e superar tudo, é a mesma mulher que desde pequena lutava diariamente para ajudar a própria família. E eu sei disso tudo, por isso... Enquanto você luta pelo seu futuro e por eles, eu lutarei ao seu lado por você. Posso parecer chato cobrando algumas coisas, mas o motivo é unicamente querer te ajudar.</p>
+        </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <h1>Quanto tempo faz?</h1>
+            <div class="timer-grid">
+                <div class="unit"><span id="days">00</span><label>Dias</label></div>
+                <div class="unit"><span id="hours">00</span><label>Horas</label></div>
+                <div class="unit"><span id="minutes">00</span><label>Minutos</label></div>
+                <div class="unit"><span id="seconds">00</span><label>Segundos</label></div>
+            </div>
+            <p style="margin-top: 20px; font-weight: 600;">Desde 01/09/2024 até o infinito.</p>
+        </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <div class="photo-frame">
+                <img src="foto.jpg" alt="Nós">
+            </div>
+            <h1>Momento do ano (2026)</h1>
+            <div class="draw" style="font-size: 2rem;">💜</div>
+        </div>
+
+        <div class="page last-page" onclick="moveBack(this)">
+            <h2>Para a Minha Kim,</h2>
+            <p style="font-style: italic; margin-bottom: 20px;">
+                "Mantenha sempre a cabeça erguida. Siga seus sonhos com a garra que só você tem, mas não esqueça de curtir o hoje. Você é mais bonita do que enxerga, mais forte do que parece e mais inteligente do que pensa. Você é você e por isso é tão única e incrível."
+            </p>
+            <p style="font-weight: 600;">
+                Eu sempre vou te apoiar, não importa o que aconteça. Você é minha pessoa favorita.
+            </p>
+            <h1 style="color: #d4af37 !important; margin-top: 20px;">Eu te amo, cachinhos.</h1>
+        </div>
+
     </div>
 
     <script>
-        let currentLevel = 0;
-        function nextPage(index) {
-            const book = document.getElementById('book');
-            const page = document.getElementById('p' + index);
-            if (index > currentLevel) {
-                page.classList.add('flipped');
-                currentLevel = index;
-                if(index === 1) book.classList.add('is-open');
-            } else {
-                page.classList.remove('flipped');
-                currentLevel = index - 1;
-                if(index === 1) book.classList.remove('is-open');
-            }
+        // Lógica de empilhamento: a página sai por cima e volta para a base da pilha
+        function moveBack(page) {
+            const container = document.getElementById('stack');
+            if (page.classList.contains('exit')) return;
+
+            page.classList.add('exit');
+            
+            setTimeout(() => {
+                page.classList.remove('exit');
+                container.prepend(page); // Coloca a página no início (atrás de todas)
+            }, 600);
         }
 
+        // Timer
         const startDate = new Date(2024, 8, 1, 0, 0, 0);
         function updateTimer() {
             const now = new Date();
@@ -227,6 +216,7 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
+        // Corações
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-fall');
