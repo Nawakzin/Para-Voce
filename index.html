@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para a Minha Kim 💜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-dark: #2e1a47;
+            --purple-main: #6a4c93;
+            --purple-light: #b298dc;
+            --paper: #ffffff;
+            --bg-soft: #f4f0f9;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-soft);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            perspective: 2000px;
+        }
+
+        .heart-fall {
+            position: absolute;
+            color: var(--purple-main);
+            font-size: 1.2rem;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 100;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .book-container {
+            position: relative;
+            width: 400px;
+            height: 580px;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+        }
+        .book-container.is-open { transform: translateX(50%); }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform-origin: left;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 35px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: inset 3px 0px 20px rgba(0,0,0,0.05), 5px 5px 15px rgba(0,0,0,0.1);
+            background: var(--paper);
+        }
+
+        .back { transform: rotateY(180deg); border-radius: 10px 0 0 10px; }
+
+        #p1 { z-index: 6; }
+        #p2 { z-index: 5; }
+        #p3 { z-index: 4; }
+        #p4 { z-index: 3; }
+        #p5 { z-index: 2; }
+
+        .flipped { transform: rotateY(-180deg); z-index: 1 !important; }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--purple-main); margin: 10px 0; text-align: center;}
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--purple-dark); text-align: center; }
+        p { font-size: 0.85rem; line-height: 1.5; text-align: center; color: #444; }
+        .draw { font-size: 3.5rem; margin: 10px 0; }
+
+        .cover-front { background: var(--purple-dark); color: white; border: 3px solid #d4af37; }
+
+        .timer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; margin-top: 10px; }
+        .unit { background: #f8f5ff; padding: 8px; border-radius: 8px; border-bottom: 3px solid var(--purple-main); }
+        .unit span { display: block; font-size: 1.1rem; font-weight: 700; color: var(--purple-main); }
+        .unit label { font-size: 0.5rem; text-transform: uppercase; }
+
+        .photo-frame { width: 100%; height: 200px; border: 5px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); overflow: hidden; }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        .back-cover { background: var(--purple-main); color: white; }
+
+        @media (max-width: 500px) {
+            .book-container { width: 320px; height: 500px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book-container" id="book">
+        
+        <div id="p1" class="page" onclick="nextPage(1)">
+            <div class="front cover-front">
+                <p style="letter-spacing: 3px;">NOSSA HISTÓRIA</p>
+                <h2 style="color: #d4af37;">Nosso mundinho</h2>
+                <div class="draw">📖</div>
+                <p>Toque para folhear...</p>
+            </div>
+            <div class="back">
+                <div class="draw">🏫</div>
+                <h2>O Início (Caótico)</h2>
+                <p>Tudo começou no CEU Parque Veredas. A gente se odiava! Pé esquerdo total. Mas admito: no fundo, eu só queria ser seu amigo (e talvez algo mais, vai saber? Você me deixava confuso).</p>
+            </div>
+        </div>
+
+        <div id="p2" class="page" onclick="nextPage(2)">
+            <div class="front">
+                <div class="draw">🎒</div>
+                <h2>A melhora</h2>
+                <p>O ódio virou parceria. Aprontamos muito, nos ajudamos e ficamos inseparáveis. Ali eu percebi que estava me apaixonando (KKKKK NÃO TINHA MAIS VOLTA)... Mas não era o momento certo, você tinha seus objetivos, suas metas e eu aceitei te esperar.</p>
+            </div>
+            <div class="back">
+                <div class="draw">🎓</div>
+                <h2>Ensino médio</h2>
+                <p>Fomos para a mesma Etec de ADM (parece marmelada, hein?), mas a vida nos distanciou um pouco. Mesmo assim, você nunca saiu do meu pensamento por um segundo sequer. Fiz coisas das quais me arrependo, porém resolvi deixar o passado para trás e olhar para o futuro. Nosso ensino médio foi difícil, mas superamos.</p>
+            </div>
+        </div>
+
+        <div id="p3" class="page" onclick="nextPage(3)">
+            <div class="front">
+                <div class="draw">🛣️</div>
+                <h2>A Chance</h2>
+                <p>Anos depois, o destino nos uniu de novo. Conversas, encontros e o sentimento voltou com tudo! Você resolveu me dar uma chance... Não vou mentir, foi a melhor escolha da minha vida. Desde o momento em que você disse "sim", meu mundo parece ter ganhado mais cor — "Disse Kawan olhando o horizonte enquanto os ventos batem em seus cabelos". KKKKKKK Coé.</p>
+            </div>
+            <div class="back">
+                <div class="draw">🏔️🌊</div>
+                <h2>Aventuras</h2>
+                <p>Campos do Jordão, Rio, Ubatuba, Bertioga... Esses são poucos lugares nos quais nos aventuramos, e eu tenho certeza que ainda conheceremos muito mais! Eu não sou de quebrar promessas e me lembro bem da nossa promessa de ir conhecer a lendária casa do Toretto.</p>
+            </div>
+        </div>
+
+        <div id="p4" class="page" onclick="nextPage(4)">
+            <div class="front">
+                <div class="draw">📚</div>
+                <h2>Orgulho de Você</h2>
+                <p>Estamos na faculdade, cada um no seu curso, mas vendo seu esforço eu só te admiro mais. Sei que é difícil equilibrar tudo, e que sua cabeça às vezes sobrecarrega com tantas informações, tantos acontecimentos... Mas jamais esqueça que se tem alguém capaz de passar por isso e superar tudo, é a mesma mulher que desde pequena lutava diariamente para ajudar a própria família. E eu sei disso tudo, por isso... Enquanto você luta pelo seu futuro e por eles, eu lutarei ao seu lado por você. Posso parecer chato cobrando algumas coisas, mas o motivo é unicamente querer te ajudar.</p>
+            </div>
+            <div class="back">
+                <h1>Quanto tempo faz?</h1>
+                <div class="timer-grid">
+                    <div class="unit"><span id="days">00</span><label>Dias</label></div>
+                    <div class="unit"><span id="hours">00</span><label>Horas</label></div>
+                    <div class="unit"><span id="minutes">00</span><label>Minutos</label></div>
+                    <div class="unit"><span id="seconds">00</span><label>Segundos</label></div>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.7rem;">Desde 01/09/2024 até o infinito.</p>
+            </div>
+        </div>
+
+        <div id="p5" class="page" onclick="nextPage(5)">
+            <div class="front">
+                <div class="photo-frame">
+                    <img src="foto.jpg" alt="Nós">
+                </div>
+                <h1 style="font-size: 1.5rem;">Momento do ano (2026)</h1>
+                <div class="draw" style="font-size: 2rem;">💜</div>
+            </div>
+            <div class="back back-cover">
+                <h2>Para a Minha Kim,</h2>
+                <p style="color: white; font-style: italic;">
+                    "Mantenha sempre a cabeça erguida. Siga seus sonhos com a garra que só você tem, mas não esqueça de curtir o hoje. Você é mais bonita do que enxerga, mais forte do que parece e mais inteligente do que pensa. Você é você e por isso é tão única e incrível."
+                </p>
+                <p style="color: white; font-weight: 600;">
+                    Eu sempre vou te apoiar, não importa o que aconteça. Você é minha pessoa favorita.
+                </p>
+                <h1 style="color: #d4af37;">Eu te amo, cachinhos.</h1>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentLevel = 0;
+
+        function nextPage(index) {
+            const book = document.getElementById('book');
+            const page = document.getElementById('p' + index);
+
+            if (index > currentLevel) {
+                page.classList.add('flipped');
+                currentLevel = index;
+                if(index === 1) book.classList.add('is-open');
+            } else {
+                page.classList.remove('flipped');
+                currentLevel = index - 1;
+                if(index === 1) book.classList.remove('is-open');
+            }
+        }
+
+        const startDate = new Date(2024, 8, 1, 0, 0, 0);
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            heart.innerHTML = '💜';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
