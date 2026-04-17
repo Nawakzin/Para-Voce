@@ -27,7 +27,6 @@
             overflow: hidden;
         }
 
-        /* Corações ao fundo */
         .heart-fall {
             position: absolute;
             color: var(--purple-main);
@@ -42,7 +41,6 @@
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Pilha de Páginas */
         .stack-container {
             position: relative;
             width: 340px;
@@ -62,12 +60,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s, z-index 0s 0.6s;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s;
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.05);
+            backface-visibility: hidden;
         }
 
-        /* Efeito de saída: vai para cima e volta para trás */
         .page.exit {
             transform: translateY(-120%) scale(0.9) rotate(-5deg);
             opacity: 0;
@@ -78,18 +76,15 @@
         p { font-size: 0.88rem; line-height: 1.6; text-align: center; color: #444; margin: 0; }
         .draw { font-size: 3rem; margin-bottom: 10px; }
 
-        /* Capa */
         .page.cover { background: var(--purple-dark); color: white; border: 4px solid #d4af37; }
         .page.cover h2 { color: #d4af37; }
         .page.cover p { color: #eee; }
 
-        /* Timer */
         .timer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 15px; }
         .unit { background: #f8f5ff; padding: 10px; border-radius: 10px; border-bottom: 3px solid var(--purple-main); text-align: center; }
         .unit span { display: block; font-size: 1.2rem; font-weight: 700; color: var(--purple-main); }
         .unit label { font-size: 0.6rem; text-transform: uppercase; color: #666; }
 
-        /* Foto */
         .photo-frame {
             width: 100%;
             height: 380px; 
@@ -100,7 +95,6 @@
         }
         .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Última Página */
         .last-page { background: var(--purple-main); color: white; }
         .last-page h1, .last-page h2, .last-page p { color: white !important; }
 
@@ -114,47 +108,23 @@
 
     <div class="stack-container" id="stack">
         
-        <div class="page cover" onclick="moveBack(this)">
-            <p style="letter-spacing: 3px;">NOSSA HISTÓRIA</p>
-            <h2>Nosso mundinho</h2>
-            <div class="draw">📖</div>
-            <p>Toque para ler nossa história...</p>
+        <div class="page last-page" onclick="moveBack(this)">
+            <h2>Para a Minha Kim,</h2>
+            <p style="font-style: italic; margin-bottom: 20px;">
+                "Mantenha sempre a cabeça erguida. Siga seus sonhos com a garra que só você tem, mas não esqueça de curtir o hoje. Você é mais bonita do que enxerga, mais forte do que parece e mais inteligente do que pensa. Você é você e por isso é tão única e incrível."
+            </p>
+            <p style="font-weight: 600;">
+                Eu sempre vou te apoiar, não importa o que aconteça. Você é minha pessoa favorita.
+            </p>
+            <h1 style="color: #d4af37 !important; margin-top: 20px;">Eu te amo, cachinhos.</h1>
         </div>
 
         <div class="page" onclick="moveBack(this)">
-            <div class="draw">🏫</div>
-            <h2>O Início (Caótico)</h2>
-            <p>Tudo começou no CEU Parque Veredas. A gente se odiava! Pé esquerdo total. Mas admito: no fundo, eu só queria ser seu amigo (e talvez algo mais, vai saber? Você me deixava confuso).</p>
-        </div>
-
-        <div class="page" onclick="moveBack(this)">
-            <div class="draw">🎒</div>
-            <h2>A melhora</h2>
-            <p>O ódio virou parceria. Aprontamos muito, nos ajudamos e ficamos inseparáveis. Ali eu percebi que estava me apaixonando (KKKKK NÃO TINHA MAIS VOLTA)... Mas não era o momento certo, você tinha seus objetivos, suas metas e eu aceitei te esperar.</p>
-        </div>
-
-        <div class="page" onclick="moveBack(this)">
-            <div class="draw">🎓</div>
-            <h2>Ensino médio</h2>
-            <p>Fomos para a mesma Etec de ADM (parece marmelada, hein?), mas a vida nos distanciou um pouco. Mesmo assim, você nunca saiu do meu pensamento por um segundo sequer. Fiz coisas das quais me arrependo, porém resolvi deixar o passado para trás e olhar para o futuro. Nosso ensino médio foi difícil, mas superamos.</p>
-        </div>
-
-        <div class="page" onclick="moveBack(this)">
-            <div class="draw">🛣️</div>
-            <h2>A Chance</h2>
-            <p>Anos depois, o destino nos uniu de novo. Conversas, encontros e o sentimento voltou com tudo! Você resolveu me dar uma chance... Não vou mentir, foi a melhor escolha da minha vida. Desde o momento em que você disse "sim", meu mundo parece ter ganhado mais cor — "Disse Kawan olhando o horizonte enquanto os ventos batem em seus cabelos". KKKKKKK Coé.</p>
-        </div>
-
-        <div class="page" onclick="moveBack(this)">
-            <div class="draw">🏔️🌊</div>
-            <h2>Aventuras</h2>
-            <p>Campos do Jordão, Rio, Ubatuba, Bertioga... Esses são poucos lugares nos quais nos aventuramos, e eu tenho certeza que ainda conheceremos muito mais! Eu não sou de quebrar promessas e me lembro bem da nossa promessa de ir conhecer a lendária casa do Toretto.</p>
-        </div>
-
-        <div class="page" onclick="moveBack(this)">
-            <div class="draw">📚</div>
-            <h2>Orgulho de Você</h2>
-            <p>Estamos na faculdade, cada um no seu curso, mas vendo seu esforço eu só te admiro mais. Sei que é difícil equilibrar tudo, e que sua cabeça às vezes sobrecarrega com tantas informações, tantos acontecimentos... Mas jamais esqueça que se tem alguém capaz de passar por isso e superar tudo, é a mesma mulher que desde pequena lutava diariamente para ajudar a própria família. E eu sei disso tudo, por isso... Enquanto você luta pelo seu futuro e por eles, eu lutarei ao seu lado por você. Posso parecer chato cobrando algumas coisas, mas o motivo é unicamente querer te ajudar.</p>
+            <div class="photo-frame">
+                <img src="foto.jpg" alt="Nós">
+            </div>
+            <h1>Momento do ano (2026)</h1>
+            <div class="draw" style="font-size: 2rem;">💜</div>
         </div>
 
         <div class="page" onclick="moveBack(this)">
@@ -169,28 +139,51 @@
         </div>
 
         <div class="page" onclick="moveBack(this)">
-            <div class="photo-frame">
-                <img src="foto.jpg" alt="Nós">
-            </div>
-            <h1>Momento do ano (2026)</h1>
-            <div class="draw" style="font-size: 2rem;">💜</div>
+            <div class="draw">📚</div>
+            <h2>Orgulho de Você</h2>
+            <p>Estamos na faculdade, cada um no seu curso, mas vendo seu esforço eu só te admiro mais. Sei que é difícil equilibrar tudo, e que sua cabeça às vezes sobrecarrega com tantas informações, tantos acontecimentos... Mas jamais esqueça que se tem alguém capaz de passar por isso e superar tudo, é a mesma mulher que desde pequena lutava diariamente para ajudar a própria família. E eu sei disso tudo, por isso... Enquanto você luta pelo seu futuro e por eles, eu lutarei ao seu lado por você. Posso parecer chato cobrando algumas coisas, mas o motivo é unicamente querer te ajudar.</p>
         </div>
 
-        <div class="page last-page" onclick="moveBack(this)">
-            <h2>Para a Minha Kim,</h2>
-            <p style="font-style: italic; margin-bottom: 20px;">
-                "Mantenha sempre a cabeça erguida. Siga seus sonhos com a garra que só você tem, mas não esqueça de curtir o hoje. Você é mais bonita do que enxerga, mais forte do que parece e mais inteligente do que pensa. Você é você e por isso é tão única e incrível."
-            </p>
-            <p style="font-weight: 600;">
-                Eu sempre vou te apoiar, não importa o que aconteça. Você é minha pessoa favorita.
-            </p>
-            <h1 style="color: #d4af37 !important; margin-top: 20px;">Eu te amo, cachinhos.</h1>
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🏔️🌊</div>
+            <h2>Aventuras</h2>
+            <p>Campos do Jordão, Rio, Ubatuba, Bertioga... Esses são poucos lugares nos quais nos aventuramos, e eu tenho certeza que ainda conheceremos muito mais! Eu não sou de quebrar promessas e me lembro bem da nossa promessa de ir conhecer a lendária casa do Toretto.</p>
+        </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🛣️</div>
+            <h2>A Chance</h2>
+            <p>Anos depois, o destino nos uniu de novo. Conversas, encontros e o sentimento voltou com tudo! Você resolveu me dar uma chance... Não vou mentir, foi a melhor escolha da minha vida. Desde o momento em que você disse "sim", meu mundo parece ter ganhado mais cor — "Disse Kawan olhando o horizonte enquanto os ventos batem em seus cabelos". KKKKKKK Coé.</p>
+        </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🎓</div>
+            <h2>Ensino médio</h2>
+            <p>Fomos para a mesma Etec de ADM (parece marmelada, hein?), mas a vida nos distanciou um pouco. Mesmo assim, você nunca saiu do meu pensamento por um segundo sequer. Fiz coisas das quais me arrependo, porém resolvi deixar o passado para trás e olhar para o futuro. Nosso ensino médio foi difícil, mas superamos.</p>
+        </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🎒</div>
+            <h2>A melhora</h2>
+            <p>O ódio virou parceria. Aprontamos muito, nos ajudamos e ficamos inseparáveis. Ali eu percebi que estava me apaixonando (KKKKK NÃO TINHA MAIS VOLTA)... Mas não era o momento certo, você tinha seus objetivos, suas metas e eu aceitei te esperar.</p>
+        </div>
+
+        <div class="page" onclick="moveBack(this)">
+            <div class="draw">🏫</div>
+            <h2>O Início (Caótico)</h2>
+            <p>Tudo começou no CEU Parque Veredas. A gente se odiava! Pé esquerdo total. Mas admito: no fundo, eu só queria ser seu amigo (e talvez algo mais, vai saber? Você me deixava confuso).</p>
+        </div>
+
+        <div class="page cover" onclick="moveBack(this)">
+            <p style="letter-spacing: 3px;">NOSSA HISTÓRIA</p>
+            <h2>Nosso mundinho</h2>
+            <div class="draw">📖</div>
+            <p>Toque para ler nossa história...</p>
         </div>
 
     </div>
 
     <script>
-        // Lógica de empilhamento: a página sai por cima e volta para a base da pilha
         function moveBack(page) {
             const container = document.getElementById('stack');
             if (page.classList.contains('exit')) return;
@@ -199,11 +192,10 @@
             
             setTimeout(() => {
                 page.classList.remove('exit');
-                container.prepend(page); // Coloca a página no início (atrás de todas)
+                container.prepend(page); 
             }, 600);
         }
 
-        // Timer
         const startDate = new Date(2024, 8, 1, 0, 0, 0);
         function updateTimer() {
             const now = new Date();
@@ -216,7 +208,6 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // Corações
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-fall');
@@ -227,7 +218,6 @@
             setTimeout(() => heart.remove(), 5000);
         }
         setInterval(createHeart, 400);
-        
     </script>
 </body>
 </html>
